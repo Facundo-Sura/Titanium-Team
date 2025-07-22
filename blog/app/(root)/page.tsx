@@ -2,8 +2,15 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-80 font-[family-name:var(--font-geist-sans)]">
-      <h1 className="text-6xl">Titanium Team</h1>
+    <div className="grid grid-rows-[1fr_1fr] items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
+      <section className="w-full h-screen flex jusctify-center-safe items-center bg-white">
+        <div className="bg-[url(/kickboxing.png)]  bg-center bg-no-repeat bg-cover h-screen w-5/12"></div>
+        <div className="text-black">
+          <h1 className="text-6xl text-center ">TITANIUM TEAM</h1>
+          <h2 className="text-2xl text-center">ESCUELA DE KICKBOXING Y MUAY THAI</h2>
+        </div>
+        <div className="bg-[url(/muaythai.png)]  bg-center bg-no-repeat bg-cover h-screen w-5/12"></div>
+      </section>
       <section className=" py-8 grid grid-rows-2 grid-cols-2">
         <div>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/fxZzELofRNc?si=EodMil5hiAHfMUOo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
@@ -30,13 +37,13 @@ export default function Home() {
       </section>
       <section className=" py-8 grid grid-rows-2 grid-cols-2">
         <div>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/RS673KRxJTw?si=q3N0hiNk7pDFoiAB" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/RS673KRxJTw?si=q3N0hiNk7pDFoiAB" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
         </div>
         <div>
-        <h1 className="text-center text-4xl pb-8">Muay Thai</h1>
-        <p>
-          El muay thai es un deporte de contacto, también conocido como Thai Boxing o Boxeo Tailandés. Es el deporte nacional y el arte marcial procedente de Tailandia. Se desarrolló hace varios cientos de años como una forma de combate cuerpo a cuerpo que se utiliza todo el cuerpo como arma. Previamente al combate se lleva a cabo un ritual de danza conocido como Wai Kru Ram Muay.
-        </p>
+          <h1 className="text-center text-4xl pb-8">Muay Thai</h1>
+          <p>
+            El muay thai es un deporte de contacto, también conocido como Thai Boxing o Boxeo Tailandés. Es el deporte nacional y el arte marcial procedente de Tailandia. Se desarrolló hace varios cientos de años como una forma de combate cuerpo a cuerpo que se utiliza todo el cuerpo como arma. Previamente al combate se lleva a cabo un ritual de danza conocido como Wai Kru Ram Muay.
+          </p>
         </div>
       </section>
     </div>
