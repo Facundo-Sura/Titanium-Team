@@ -6,7 +6,7 @@ export default function Home() {
       <section className="w-full h-screen flex jusctify-center-safe items-center bg-white">
         <div className="bg-[url(/kickboxing.png)]  bg-center bg-no-repeat bg-cover h-screen w-5/12"></div>
         <div className="text-black">
-          <h1 className="text-6xl text-center ">TITANIUM TEAM</h1>
+          <h1 className="text-6xl text-center">TITANIUM TEAM</h1>
           <h2 className="text-2xl text-center">ESCUELA DE KICKBOXING Y MUAY THAI</h2>
         </div>
         <div className="bg-[url(/muaythai.png)]  bg-center bg-no-repeat bg-cover h-screen w-5/12"></div>
