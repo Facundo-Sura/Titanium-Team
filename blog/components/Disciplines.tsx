@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const disciplines = [
     { name: "Muay Thai", img: "/muaythai.jpg" },
     { name: "Kickboxing", img: "/kickboxing.jpg" },
