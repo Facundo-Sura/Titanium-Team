@@ -38,7 +38,7 @@ export default function Training() {
       {/* Hero */}
       <section className="relative h-[40vh] flex items-center justify-center bg-gray-900">
         <Image
-          src="/trainings-hero.jpg"
+          src="/contact.jpg"
           alt="Entrenamientos"
           fill
           className="object-cover opacity-40"
