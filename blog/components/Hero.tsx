@@ -4,7 +4,7 @@ export default function Hero() {
             <div className="absolute inset-0 bg-black/70" />
             <div className="relative z-10 text-center px-4">
                 <h1 className="text-4xl md:text-6xl font-bold text-red-500 drop-shadow-lg">
-                    TITANIUM'S TEAM
+                    {"TITANIUM'S TEAM"}
                 </h1>
                 <p className="mt-4 text-lg md:text-2xl max-w-2xl mx-auto">
                     Escuela de Muay Thai & Kickboxing
