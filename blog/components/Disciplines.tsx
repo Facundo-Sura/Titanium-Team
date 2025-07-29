@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const disciplines = [
     { name: "Muay Thai", img: "/muaythai.jpg" },
     { name: "Kickboxing", img: "/kickboxing.jpg" },
@@ -18,7 +16,7 @@ const disciplines = [
               key={d.name}
               className="bg-black rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform"
             >
-              <Image src={d.img} alt={d.name} className="w-full h-64 object-cover" />
+              <img src={d.img} alt={d.name} className="w-full h-64 object-cover" />
               <div className="p-4 text-center">
                 <h3 className="text-xl font-bold text-white">{d.name}</h3>
               </div>
