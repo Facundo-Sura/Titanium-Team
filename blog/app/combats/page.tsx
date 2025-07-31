@@ -13,20 +13,20 @@ const combats: Combat[] = [
   {
     fighter: "Lucas Martínez",
     category: "Muay Thai - 70kg",
-    video: "/videos/lucas-combat.mp4",
-    images: ["/photos/lucas1.jpg", "/photos/lucas2.jpg", "/photos/lucas3.jpg"],
+    video: "landing.mp4",
+    images: ["/about.jpg", "/contact.jpg"],
   },
   {
     fighter: "Sofía Díaz",
     category: "Kickboxing - 60kg",
-    video: "/videos/sofia-combat.mp4",
-    images: ["/photos/sofia1.jpg", "/photos/sofia2.jpg"],
+    video: "entrenamiento.mp4",
+    images: ["/about.jpg", "/contact.jpg"],
   },
   {
     fighter: "Matías Herrera",
     category: "K1 - 75kg",
-    video: "/videos/matias-combat.mp4",
-    images: ["/photos/matias1.jpg", "/photos/matias2.jpg"],
+    video: "combates.mp4",
+    images: ["/about.jpg", "/contact.jpg"],
   },
 ];
 
@@ -37,9 +37,9 @@ export default function CombatsPage() {
   return (
     <main className="mt-18 font-sans min-h-screen">
       {/* Hero */}
-      <section className="relative h-[40vh] flex items-center justify-center bg-gray-900">
+      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <Image
-          src="/combats-hero.jpg"
+          src="/contact.jpg"
           alt="Combates"
           fill
           className="object-cover opacity-40"
