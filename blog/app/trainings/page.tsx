@@ -11,22 +11,22 @@ type Training = {
 
 const trainings: Training[] = [
   {
-    title: "Sesión de Muay Thai - Cardio",
-    description: "Trabajo de golpes básicos con enfoque en resistencia.",
-    video: "/entrenamientos/combinacion-low.mp4",
-    images: ["/photos/muay1.jpg", "/photos/muay2.jpg"],
+    title: "Entrenamiento con paos",
+    description: "Trabajo de combinaciones de golpes y patadas.",
+    video: "/entrenamientos/entrenamiento con paos.mp4",
+    images: ["/entrenamientos/entrenamiento con paos.jpg", "/entrenamientos/entrenamiento con paos(1).jpg"],
   },
   {
-    title: "Kickboxing - Sparring",
+    title: "Entrenamiento con paos(1)",
     description: "Práctica de técnicas de ataque y defensa en combate.",
-    video: "/entrenamientos/combinaciones.mp4",
-    images: ["/photos/kick1.jpg", "/photos/kick2.jpg"],
+    video: "/entrenamientos/entrenamiento con paos(1).mp4",
+    images: ["/entrenamientos/paos competidores.jpg", "/entrenamientos/paos competidores1.jpg"],
   },
   {
     title: "K1 - Combinaciones",
     description: "Entrenamiento de combinaciones avanzadas de puños y patadas.",
     video: "/entrenamientos/combinaciones-k1.mp4",
-    images: ["/photos/k11.jpg", "/photos/k12.jpg"],
+    images: ["/entrenamientos/cinturon.jpg", "/entrenamientos/cinturon1.jpg", "/entrenamientos/cinturon2.jpg"],
   },
 ];
 
@@ -36,9 +36,9 @@ export default function Training() {
   return (
     <main className="bg-black text-white font-sans min-h-screen">
       {/* Hero */}
-      <section className="relative h-[40vh] flex items-center justify-center bg-gray-900">
+      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <Image
-          src="/contact.jpg"
+          src="/entrenamientos/background.jpg"
           alt="Entrenamientos"
           fill
           className="object-cover opacity-40"
