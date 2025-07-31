@@ -34,7 +34,7 @@ export default function Training() {
   const [current, setCurrent] = useState<Training>(trainings[0]);
 
   return (
-    <main className="bg-black text-white font-sans min-h-screen">
+    <main className="mt-18 font-sans min-h-screen">
       {/* Hero */}
       <section className="relative h-[40vh] flex items-center justify-center bg-gray-900">
         <Image

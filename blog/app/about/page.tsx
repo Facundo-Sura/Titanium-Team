@@ -2,9 +2,9 @@ import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <main className="bg-black text-white font-sans">
+    <main className="mt-18 font-sans">
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center bg-gray-900">
+      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <Image
           src="/team.jpg"
           alt="Nuestro equipo"

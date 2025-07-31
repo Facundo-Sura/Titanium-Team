@@ -41,9 +41,9 @@ const competitors = [
 
 export default function Pupils() {
   return (
-    <main className="bg-black text-white font-sans">
+    <main className="mt-18 font-sans">
       {/* Hero */}
-      <section className="relative h-[50vh] flex items-center justify-center bg-gray-900">
+      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <Image
           src="/competidores.jpg"
           alt="Competidores"
