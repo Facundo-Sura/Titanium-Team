@@ -11,22 +11,22 @@ type Combat = {
 
 const combats: Combat[] = [
   {
-    fighter: "Lucas Martínez",
-    category: "Muay Thai - 70kg",
-    video: "landing.mp4",
-    images: ["/about.jpg", "/contact.jpg"],
+    fighter: "Alex Huenca",
+    category: "Kick - Semi pro",
+    video: "/combates/roundx - ale.mp4",
+    images: ["/alex.jpg", ""],
   },
   {
-    fighter: "Sofía Díaz",
-    category: "Kickboxing - 60kg",
-    video: "entrenamiento.mp4",
-    images: ["/about.jpg", "/contact.jpg"],
+    fighter: "Lucas Muslera",
+    category: "Kick - amateur",
+    video: "/combates/roundx - luqui.mp4",
+    images: ["", ""],
   },
   {
-    fighter: "Matías Herrera",
-    category: "K1 - 75kg",
-    video: "combates.mp4",
-    images: ["/about.jpg", "/contact.jpg"],
+    fighter: "Tiziano Pelssa",
+    category: "Kick - amateur",
+    video: "/combates/roundx - tizi.mp4",
+    images: ["/tizi.jpg", ""],
   },
 ];
 
