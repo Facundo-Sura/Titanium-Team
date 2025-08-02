@@ -13,19 +13,19 @@ const trainings: Training[] = [
   {
     title: "Sesión de Muay Thai - Cardio",
     description: "Trabajo de golpes básicos con enfoque en resistencia.",
-    video: "/entrenamientos/combinacion-low.mp4",
+    video: "/videos/muaythai-cardio.mp4",
     images: ["/photos/muay1.jpg", "/photos/muay2.jpg"],
   },
   {
-    title: "Kickboxing - Sparring",
+    title: "Entrenamiento con paos(1)",
     description: "Práctica de técnicas de ataque y defensa en combate.",
-    video: "/entrenamientos/combinaciones.mp4",
+    video: "/videos/kickboxing-sparring.mp4",
     images: ["/photos/kick1.jpg", "/photos/kick2.jpg"],
   },
   {
     title: "K1 - Combinaciones",
     description: "Entrenamiento de combinaciones avanzadas de puños y patadas.",
-    video: "/entrenamientos/combinaciones-k1.mp4",
+    video: "/videos/k1-training.mp4",
     images: ["/photos/k11.jpg", "/photos/k12.jpg"],
   },
 ];
@@ -34,11 +34,11 @@ export default function Training() {
   const [current, setCurrent] = useState<Training>(trainings[0]);
 
   return (
-    <main className="bg-black text-white font-sans min-h-screen">
+    <main className="mt-18 font-sans min-h-screen">
       {/* Hero */}
-      <section className="relative h-[40vh] flex items-center justify-center bg-gray-900">
+      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <Image
-          src="/contact.jpg"
+          src="/trainings-hero.jpg"
           alt="Entrenamientos"
           fill
           className="object-cover opacity-40"
