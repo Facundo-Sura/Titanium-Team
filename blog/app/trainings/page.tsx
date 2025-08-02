@@ -14,7 +14,10 @@ const trainings: Training[] = [
     title: "Entrenamiento con paos",
     description: "Trabajo de golpes básicos con enfoque en resistencia.",
     video: "/entrenamientos/entrenamiento con paos.mp4",
-    images: ["/entrenamientos/entrenamiento con paos.jpg", "/entrenamientos/entrenamiento con paos(1).jpg"],
+    images: [
+      "/entrenamientos/entrenamiento con paos.jpg",
+      "/entrenamientos/entrenamiento con paos(1).jpg",
+    ],
   },
   {
     title: "Transferencia de gimnasio a tecninca",
@@ -25,8 +28,38 @@ const trainings: Training[] = [
   {
     title: "Kick - Sparring",
     description: "Entrenamiento de combinaciones avanzadas de puños y patadas.",
+    video: "/entrenamientos/tizi vs nico.mp4",
+    images: [
+      "/entrenamientos/dia-de-spa1.jpg",
+      "/entrenamientos/dia-de-spa2.jpg",
+    ],
+  },
+  {
+    title: "Kick - Sparring",
+    description: "Entrenamiento de combinaciones avanzadas de puños y patadas.",
+    video: "/entrenamientos/ale vs nico.mp4",
+    images: [
+      "/entrenamientos/dia-de-spa1.jpg",
+      "/entrenamientos/dia-de-spa2.jpg",
+    ],
+  },
+  {
+    title: "Kick - Sparring",
+    description: "Entrenamiento de combinaciones avanzadas de puños y patadas.",
+    video: "/entrenamientos/gere vs luqui.mp4",
+    images: [
+      "/entrenamientos/dia-de-spa1.jpg",
+      "/entrenamientos/dia-de-spa2.jpg",
+    ],
+  },
+  {
+    title: "Kick - Sparring",
+    description: "Entrenamiento de combinaciones avanzadas de puños y patadas.",
     video: "/entrenamientos/cris vs ale.mp4",
-    images: ["/entrenamientos/dia-de-spa1.jpg", "/entrenamientos/dia-de-spa2.jpg"],
+    images: [
+      "/entrenamientos/dia-de-spa1.jpg",
+      "/entrenamientos/dia-de-spa2.jpg",
+    ],
   },
 ];
 
@@ -65,7 +98,9 @@ export default function Training() {
               className="w-full h-full object-cover rounded-xl"
             />
           </div>
-          <h2 className="text-2xl font-bold text-red-500 mt-4">{current.title}</h2>
+          <h2 className="text-2xl font-bold text-red-500 mt-4">
+            {current.title}
+          </h2>
           <p className="text-gray-300 mt-2">{current.description}</p>
 
           {/* Galería de imágenes debajo */}
@@ -85,7 +120,9 @@ export default function Training() {
 
         {/* Sugerencias de videos */}
         <aside className="lg:w-1/3 bg-gray-900 p-4 rounded-xl">
-          <h3 className="text-xl font-bold text-red-500 mb-4">Otros entrenamientos</h3>
+          <h3 className="text-xl font-bold text-red-500 mb-4">
+            Otros entrenamientos
+          </h3>
           <div className="flex flex-col gap-4">
             {trainings.map((t, i) => (
               <button
@@ -104,7 +141,9 @@ export default function Training() {
                 </div>
                 <div className="text-left p-2">
                   <p className="text-sm font-bold text-white">{t.title}</p>
-                  <p className="text-xs text-gray-400 line-clamp-2">{t.description}</p>
+                  <p className="text-xs text-gray-400 line-clamp-2">
+                    {t.description}
+                  </p>
                 </div>
               </button>
             ))}
