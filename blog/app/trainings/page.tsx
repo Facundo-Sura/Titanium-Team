@@ -11,22 +11,22 @@ type Training = {
 
 const trainings: Training[] = [
   {
-    title: "Sesión de Muay Thai - Cardio",
+    title: "Entrenamiento con paos",
     description: "Trabajo de golpes básicos con enfoque en resistencia.",
-    video: "/videos/muaythai-cardio.mp4",
-    images: ["/photos/muay1.jpg", "/photos/muay2.jpg"],
+    video: "/entrenamientos/entrenamiento con paos.mp4",
+    images: ["/entrenamientos/entrenamiento con paos.jpg", "/entrenamientos/entrenamiento con paos(1).jpg"],
   },
   {
-    title: "Entrenamiento con paos(1)",
+    title: "Transferencia de gimnasio a tecninca",
     description: "Práctica de técnicas de ataque y defensa en combate.",
-    video: "/videos/kickboxing-sparring.mp4",
-    images: ["/photos/kick1.jpg", "/photos/kick2.jpg"],
+    video: "/entrenamientos/transferencia.mp4",
+    images: ["/entrenamientos/kick1.jpg", "/entrenamientos/kick2.jpg"],
   },
   {
-    title: "K1 - Combinaciones",
+    title: "Kick - Sparring",
     description: "Entrenamiento de combinaciones avanzadas de puños y patadas.",
-    video: "/videos/k1-training.mp4",
-    images: ["/photos/k11.jpg", "/photos/k12.jpg"],
+    video: "/entrenamientos/cris vs ale.mp4",
+    images: ["/entrenamientos/dia-de-spa1.jpg", "/entrenamientos/dia-de-spa2.jpg"],
   },
 ];
 
@@ -38,7 +38,7 @@ export default function Training() {
       {/* Hero */}
       <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <Image
-          src="/trainings-hero.jpg"
+          src="/entrenamientos/background.jpg"
           alt="Entrenamientos"
           fill
           className="object-cover opacity-40"
