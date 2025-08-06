@@ -36,16 +36,19 @@ export default function Combats() {
 
   const openLightbox = (index: number) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
-  const prevImage = () => setLightboxIndex((i) => (i !== null && i > 0 ? i - 1 : i));
+  const prevImage = () =>
+    setLightboxIndex((i) => (i !== null && i > 0 ? i - 1 : i));
   const nextImage = () =>
-    setLightboxIndex((i) => (i !== null && i < current.images.length - 1 ? i + 1 : i));
+    setLightboxIndex((i) =>
+      i !== null && i < current.images.length - 1 ? i + 1 : i
+    );
 
   return (
-    <main className="bg-black text-white font-sans min-h-screen">
+    <main className="mt-18 min-h-screen">
       {/* Hero */}
-      <section className="relative h-[40vh] flex items-center justify-center bg-gray-900">
+      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
         <Image
-          src="/combats-hero.jpg"
+          src="/contact.jpg"
           alt="Combates"
           fill
           className="object-cover opacity-40"
@@ -65,15 +68,17 @@ export default function Combats() {
       <section className="py-10 px-4 md:px-10 flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto">
         {/* Video principal */}
         <div className="flex-1">
-          <div className="relative w-full h-[250px] md:h-[450px] bg-black rounded-xl overflow-hidden">
+          <div className="w-full max-w-4xl mx-auto aspect-video flex items-center justify-center">
             <video
               src={current.video}
               controls
-              className="w-full h-full object-cover"
+              className="max-h-full max-w-full object-contain"
             />
           </div>
 
-          <h2 className="text-2xl font-bold text-red-500 mt-4">{current.fighter}</h2>
+          <h2 className="text-2xl font-bold text-red-500 mt-4">
+            {current.fighter}
+          </h2>
           <p className="text-gray-400">{current.category}</p>
 
           {/* Galería de imágenes */}
@@ -97,7 +102,9 @@ export default function Combats() {
 
         {/* Lista de sugerencias */}
         <aside className="lg:w-1/3 bg-gray-900 p-4 rounded-xl">
-          <h3 className="text-xl font-bold text-red-500 mb-4">Otros Combates</h3>
+          <h3 className="text-xl font-bold text-red-500 mb-4">
+            Otros Combates
+          </h3>
           <div className="flex flex-col gap-4">
             {combats.map((c, i) => (
               <button
@@ -134,7 +141,7 @@ export default function Combats() {
           onClick={closeLightbox}
         >
           <div
-            className="relative w-11/12 md:w-3/4 lg:w-1/2 max-h-[90vh]"
+            className="w-full max-w-2xl h-[80vh] overflow-auto bg-black flex items-center justify-center rounded-lg mx-auto my-4 p-2"
             onClick={(e) => e.stopPropagation()} // evita que se cierre al hacer click en la imagen
           >
             {/* Imagen actual */}
@@ -143,7 +150,7 @@ export default function Combats() {
               alt="Ampliada"
               width={1200}
               height={800}
-              className="object-contain rounded-lg mx-auto"
+              className="object-contain max-h-full max-w-full"
             />
 
             {/* Botón cerrar */}
