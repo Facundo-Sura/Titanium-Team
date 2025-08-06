@@ -30,16 +30,22 @@ const combats: Combat[] = [
   },
 ];
 
-export default function CombatsPage() {
+export default function Combats() {
   const [current, setCurrent] = useState<Combat>(combats[0]);
-  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const openLightbox = (index: number) => setLightboxIndex(index);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prevImage = () => setLightboxIndex((i) => (i !== null && i > 0 ? i - 1 : i));
+  const nextImage = () =>
+    setLightboxIndex((i) => (i !== null && i < current.images.length - 1 ? i + 1 : i));
 
   return (
-    <main className="mt-18 font-sans min-h-screen">
+    <main className="bg-black text-white font-sans min-h-screen">
       {/* Hero */}
-      <section className="relative h-[80vh] flex items-center justify-center bg-gray-900">
+      <section className="relative h-[40vh] flex items-center justify-center bg-gray-900">
         <Image
-          src="/contact.jpg"
+          src="/combats-hero.jpg"
           alt="Combates"
           fill
           className="object-cover opacity-40"
@@ -76,7 +82,7 @@ export default function CombatsPage() {
               <div
                 key={i}
                 className="relative w-full h-32 cursor-pointer group"
-                onClick={() => setLightboxImg(img)}
+                onClick={() => openLightbox(i)}
               >
                 <Image
                   src={img}
@@ -96,7 +102,10 @@ export default function CombatsPage() {
             {combats.map((c, i) => (
               <button
                 key={i}
-                onClick={() => setCurrent(c)}
+                onClick={() => {
+                  setCurrent(c);
+                  setLightboxIndex(null);
+                }}
                 className={`flex gap-3 items-center bg-black rounded-lg overflow-hidden hover:bg-gray-800 transition ${
                   c.fighter === current.fighter ? "ring-2 ring-red-500" : ""
                 }`}
@@ -119,19 +128,51 @@ export default function CombatsPage() {
       </section>
 
       {/* Lightbox Modal */}
-      {lightboxImg && (
+      {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 cursor-zoom-out"
-          onClick={() => setLightboxImg(null)}
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+          onClick={closeLightbox}
         >
-          <div className="relative w-11/12 md:w-3/4 lg:w-1/2 h-auto max-h-[90vh]">
+          <div
+            className="relative w-11/12 md:w-3/4 lg:w-1/2 max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()} // evita que se cierre al hacer click en la imagen
+          >
+            {/* Imagen actual */}
             <Image
-              src={lightboxImg}
+              src={current.images[lightboxIndex]}
               alt="Ampliada"
               width={1200}
               height={800}
               className="object-contain rounded-lg mx-auto"
             />
+
+            {/* Botón cerrar */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-2 right-2 text-white bg-red-500 rounded-full w-8 h-8 flex items-center justify-center"
+            >
+              ✕
+            </button>
+
+            {/* Botón anterior */}
+            {lightboxIndex > 0 && (
+              <button
+                onClick={prevImage}
+                className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full"
+              >
+                ◀
+              </button>
+            )}
+
+            {/* Botón siguiente */}
+            {lightboxIndex < current.images.length - 1 && (
+              <button
+                onClick={nextImage}
+                className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full"
+              >
+                ▶
+              </button>
+            )}
           </div>
         </div>
       )}
