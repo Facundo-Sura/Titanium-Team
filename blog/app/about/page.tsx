@@ -43,7 +43,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div className="bg-black rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
             <div className="relative w-full h-72">
-              <Image src="/coach1.jpg" alt="Entrenador 1" fill className="object-cover" />
+              <Image src="/profes/coach1.jpg" alt="Entrenador 1" fill className="object-cover" />
             </div>
             <div className="p-4 text-center">
               <h3 className="text-xl font-bold text-red-500">David Bertossi</h3>
@@ -52,7 +52,7 @@ export default function AboutPage() {
           </div>
           <div className="bg-black rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
             <div className="relative w-full h-72">
-              <Image src="/coach2.jpg" alt="Entrenador 2" fill className="object-cover" />
+              <Image src="/profes/coach2.jpg" alt="Entrenador 2" fill className="object-cover" />
             </div>
             <div className="p-4 text-center">
               <h3 className="text-xl font-bold text-red-500">Alex Huanca</h3>
@@ -61,7 +61,7 @@ export default function AboutPage() {
           </div>
           <div className="bg-black rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform">
             <div className="relative w-full h-72">
-              <Image src="/coach3.jpg" alt="Entrenador 3" fill className="object-cover" />
+              <Image src="/profes/coach3.jpg" alt="Entrenador 3" fill className="object-cover" />
             </div>
             <div className="p-4 text-center">
               <h3 className="text-xl font-bold text-red-500">Noha Tosonieri</h3>
