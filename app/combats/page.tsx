@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Play, Pause, Volume2, VolumeX, Maximize, X, Zap, Award, Flame, Trophy, Clock, Target } from "lucide-react";
+import { Play, X, Zap, Award, Flame, Trophy, Clock, Target } from "lucide-react";
 
 type Combat = {
   fighter: string;
@@ -88,11 +88,10 @@ const combats: Combat[] = [
 
 export default function CombatsPage() {
   const [current, setCurrent] = useState<Combat>(combats[0]);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
 
   const containerRef = useRef(null);
   const heroRef = useRef(null);
@@ -114,14 +113,52 @@ export default function CombatsPage() {
 
   const handleVideoClick = () => {
     if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
+      if (videoRef.current.paused) {
         videoRef.current.play();
+      } else {
+        videoRef.current.pause();
       }
-      setIsPlaying(!isPlaying);
     }
   };
+
+  // Keyboard shortcuts (f, m, k, space, esc) - solo desktop
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!videoRef.current) return;
+      
+      switch (e.key.toLowerCase()) {
+        case 'f':
+          // Toggle fullscreen
+          if (!document.fullscreenElement && videoContainerRef.current) {
+            videoContainerRef.current.requestFullscreen();
+          } else if (document.fullscreenElement) {
+            document.exitFullscreen();
+          }
+          break;
+        case 'm':
+          // Toggle mute
+          videoRef.current.muted = !videoRef.current.muted;
+          break;
+        case 'escape':
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          }
+          break;
+        case ' ':
+        case 'k':
+          // Play/pause
+          e.preventDefault();
+          handleVideoClick();
+          break;
+      }
+    };
+
+    // Solo agregar listener en desktop (no touch)
+    if (typeof window !== 'undefined' && !('ontouchstart' in window)) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, []);
 
   const getResultColor = (result: string) => {
     switch (result) {
@@ -242,6 +279,7 @@ export default function CombatsPage() {
           {/* Video principal */}
           <div className="flex-1">
             <motion.div
+              ref={videoContainerRef}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -265,38 +303,19 @@ export default function CombatsPage() {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-red-600/20 border border-gray-800"
               >
+                                
+                {/* Video con controles nativos - funciona en mobile y desktop */}
                 <video
                   ref={videoRef}
                   src={current.video}
                   className="w-full h-full object-cover"
                   onClick={handleVideoClick}
+                  onTouchStart={handleVideoClick}
                   poster={current.thumbnail}
+                  playsInline
+                  controls
+                  controlsList="nodownload"
                 />
-                
-                {/* Overlay con controles */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-0 hover:opacity-100 transition-opacity">
-                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent">
-                    <div className="flex items-center justify-between">
-                      <div className="flex gap-3">
-                        <button
-                          onClick={handleVideoClick}
-                          className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-500 transition"
-                        >
-                          {isPlaying ? <Pause className="text-white" size={20} /> : <Play className="text-white ml-1" size={20} />}
-                        </button>
-                        <button
-                          onClick={() => setIsMuted(!isMuted)}
-                          className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition"
-                        >
-                          {isMuted ? <VolumeX className="text-white" size={18} /> : <Volume2 className="text-white" size={18} />}
-                        </button>
-                      </div>
-                      <button className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition">
-                        <Maximize className="text-white" size={18} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
 
                 {/* Result badge */}
                 <div className={`absolute top-4 left-4 px-4 py-1.5 rounded-full text-sm font-bold border ${getResultColor(current.result)}`}>
@@ -358,7 +377,6 @@ export default function CombatsPage() {
                     transition={{ delay: 0.3 + i * 0.1 }}
                     onClick={() => {
                       setCurrent(c);
-                      setIsPlaying(false);
                     }}
                     className={`group relative p-3 rounded-xl text-left transition-all duration-300 overflow-hidden ${
                       c.fighter === current.fighter 
