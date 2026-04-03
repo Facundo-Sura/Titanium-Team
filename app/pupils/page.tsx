@@ -1,7 +1,7 @@
 'use client';
 
+import { useState, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
 import Image from "next/image";
 import { Trophy, Medal, Target, Zap, Award, Crown, Flame } from "lucide-react";
 
@@ -85,6 +85,43 @@ const competitors = [
     status: "new",
   },
 ];
+
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setRotation({ x: y * 20, y: -x * 20 });
+  };
+
+  const handleMouseLeave = () => {
+    setRotation({ x: 0, y: 0 });
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      style={{
+        perspective: 1000,
+        transformStyle: "preserve-3d",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{
+        rotateX: rotation.x,
+        rotateY: rotation.y,
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 const stats = [
   { number: "25+", label: "Combates Totales", icon: Trophy },
@@ -264,19 +301,9 @@ export default function PupilsPage() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {competitors.map((comp, index) => (
-              <motion.div
+            {competitors.map((comp) => (
+              <TiltCard
                 key={comp.name}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
-                  delay: index * 0.1, 
-                  duration: 0.6,
-                  type: "spring",
-                  stiffness: 100
-                }}
-                whileHover={{ y: -15 }}
                 className="group relative"
               >
                 {/* Card */}
@@ -345,7 +372,7 @@ export default function PupilsPage() {
                   {/* Glow effect */}
                   <div className="absolute inset-0 bg-yellow-500/0 group-hover:bg-yellow-500/5 transition-colors duration-500 pointer-events-none rounded-3xl" />
                 </div>
-              </motion.div>
+              </TiltCard>
             ))}
           </div>
         </div>

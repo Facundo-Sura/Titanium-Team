@@ -23,6 +23,7 @@ const socials = [
   { icon: Instagram, label: "Instagram", href: "https://instagram.com", color: "from-purple-500 to-pink-500" },
   { icon: Facebook, label: "Facebook", href: "https://facebook.com", color: "from-blue-500 to-blue-600" },
   { icon: Youtube, label: "YouTube", href: "https://youtube.com", color: "from-red-500 to-red-600" },
+  { icon: Zap, label: "TikTok", href: "https://tiktok.com", color: "from-black to-gray-800" },
 ];
 
 export default function Footer() {
@@ -156,14 +157,42 @@ export default function Footer() {
 
               {/* Horarios brief */}
               <div className="mt-8 p-4 bg-gray-800/30 rounded-xl border border-gray-700/50">
-                <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+                <div className="flex items-center gap-2 text-gray-400 text-sm mb-3">
                   <Clock size={14} className="text-red-500" />
                   <span className="font-medium text-white">Horarios</span>
                 </div>
-                <p className="text-gray-500 text-xs">
-                  Lun - Vie: 9hs a 22hs<br />
-                  Sáb: 9hs a 18hs
-                </p>
+                <div className="space-y-3 text-xs">
+                  <div className="flex items-start gap-2">
+                    <span className="px-2 py-0.5 bg-red-600/20 text-red-400 font-medium rounded">Lun</span>
+                    <span className="px-2 py-0.5 bg-red-600/20 text-red-400 font-medium rounded">Mié</span>
+                    <span className="px-2 py-0.5 bg-red-600/20 text-red-400 font-medium rounded">Vie</span>
+                    <div className="text-gray-400">
+                      <span className="text-white font-medium">14:30</span> - <span className="text-white font-medium">16:00</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="px-2 py-0.5 bg-red-600/20 text-red-400 font-medium rounded">Lun</span>
+                    <span className="px-2 py-0.5 bg-red-600/20 text-red-400 font-medium rounded">Mié</span>
+                    <span className="px-2 py-0.5 bg-red-600/20 text-red-400 font-medium rounded">Vie</span>
+                    <div className="text-gray-400">
+                      <span className="text-white font-medium">14:30</span> - <span className="text-white font-medium">16:00</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-2 py-0.5 bg-blue-600/20 text-blue-400 font-medium rounded">Mar</span>
+                    <span className="px-2 py-0.5 bg-blue-600/20 text-blue-400 font-medium rounded">Jue</span>
+                    <div className="text-gray-400">
+                      <span className="text-white font-medium">21:30</span> - <span className="text-white font-medium">23:00</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-gray-700/50">
+                  <p className="text-gray-500 text-xs">
+                    <span className="text-red-400 font-medium">Muay Thai</span> •{' '}
+                    <span className="text-red-400 font-medium">K1</span> •{' '}
+                    <span className="text-blue-400 font-medium">Kickboxing</span>
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>

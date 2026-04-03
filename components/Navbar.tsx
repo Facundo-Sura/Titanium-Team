@@ -7,9 +7,9 @@ import { Menu, X, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
+  { href: "/contact", label: "Contacto" },
   { href: "/about", label: "Nosotros" },
   { href: "/pupils", label: "Alumnos" },
-  { href: "/trainings", label: "Entrenamientos" },
   { href: "/combats", label: "Combates" },
 ];
 
