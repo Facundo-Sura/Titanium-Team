@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Play, X, Zap, Award, Flame, Trophy, Clock, Target } from "lucide-react";
 
@@ -86,7 +86,7 @@ const combats: Combat[] = [
   },
 ];
 
-export default function CombatsPage() {
+export default function CombatesPage() {
   const [current, setCurrent] = useState<Combat>(combats[0]);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
@@ -103,14 +103,6 @@ export default function CombatsPage() {
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-  const { scrollYProgress: heroScroll } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const heroY = useTransform(heroScroll, [0, 1], ["0%", "30%"]);
-  const heroOpacity = useTransform(heroScroll, [0, 0.5], [1, 0]);
-
   const handleVideoClick = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
@@ -121,14 +113,12 @@ export default function CombatsPage() {
     }
   };
 
-  // Keyboard shortcuts (f, m, k, space, esc) - solo desktop
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!videoRef.current) return;
       
       switch (e.key.toLowerCase()) {
         case 'f':
-          // Toggle fullscreen
           if (!document.fullscreenElement && videoContainerRef.current) {
             videoContainerRef.current.requestFullscreen();
           } else if (document.fullscreenElement) {
@@ -136,7 +126,6 @@ export default function CombatsPage() {
           }
           break;
         case 'm':
-          // Toggle mute
           videoRef.current.muted = !videoRef.current.muted;
           break;
         case 'escape':
@@ -146,14 +135,12 @@ export default function CombatsPage() {
           break;
         case ' ':
         case 'k':
-          // Play/pause
           e.preventDefault();
           handleVideoClick();
           break;
       }
     };
 
-    // Solo agregar listener en desktop (no touch)
     if (typeof window !== 'undefined' && !('ontouchstart' in window)) {
       window.addEventListener('keydown', handleKeyDown);
       return () => window.removeEventListener('keydown', handleKeyDown);
@@ -171,18 +158,23 @@ export default function CombatsPage() {
 
   return (
     <main ref={containerRef} className="font-sans bg-black min-h-screen">
-      {/* Progress bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-400 z-50"
         style={{ scaleX: smoothProgress, transformOrigin: "0%" }}
       />
 
-      {/* Hero Section */}
+      {/* Hero Section con animación de guantes */}
       <section 
         ref={heroRef}
         className="relative h-screen flex items-center justify-center overflow-hidden"
       >
-        <motion.div style={{ y: heroY }} className="absolute inset-0">
+        {/* Imagen de fondo */}
+        <motion.div 
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+        >
           <Image
             src="/contact.jpg"
             alt="Combates"
@@ -190,15 +182,17 @@ export default function CombatsPage() {
             className="object-cover"
             priority
           />
-        </motion.div>
-        
-        <motion.div style={{ opacity: heroOpacity }} className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
         </motion.div>
 
-        {/* Animated particles */}
-        <div className="absolute inset-0 overflow-hidden">
+        {/* Glow effects */}
+        <motion.div 
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
           <motion.div 
             className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-red-600/20 rounded-full blur-[150px]"
             animate={{ 
@@ -207,43 +201,162 @@ export default function CombatsPage() {
             }}
             transition={{ duration: 6, repeat: Infinity }}
           />
-        </div>
+        </motion.div>
 
-        <div className="relative z-10 text-center px-4">
+        {/* Guantes de boxeo animación */}
+        <div className="relative z-20 w-full h-full flex items-center justify-center">
+          {/* Explosión/Impacto en el centro */}
           <motion.div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="mb-6"
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <motion.span
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="inline-flex items-center gap-2 px-6 py-2 bg-red-600/20 border border-red-500/40 rounded-full text-red-400 font-semibold text-sm"
-            >
-              <Trophy size={16} />
-              En el ring
-            </motion.span>
+            <motion.div
+              className="absolute w-20 h-20 rounded-full border-4 border-red-500"
+              initial={{ scale: 0, opacity: 1 }}
+              animate={{ scale: 3, opacity: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            />
+            <motion.div
+              className="absolute w-32 h-32 rounded-full border-2 border-yellow-400"
+              initial={{ scale: 0, opacity: 1 }}
+              animate={{ scale: 4, opacity: 0 }}
+              transition={{ delay: 0.35, duration: 0.5 }}
+            />
+            {[...Array(12)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-white rounded-full"
+                initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+                animate={{ 
+                  x: Math.cos(i * 30 * Math.PI / 180) * 100,
+                  y: Math.sin(i * 30 * Math.PI / 180) * 100,
+                  opacity: 0,
+                  scale: 0
+                }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+              />
+            ))}
           </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-6xl md:text-8xl font-black text-white mb-6"
+
+          {/* Guante izquierdo - ROJO */}
+          <motion.div
+            className="absolute left-1/2"
+            initial={{ x: 0, opacity: 0 }}
+            animate={{ x: -250, opacity: [1, 1, 0] }}
+            transition={{ 
+              delay: 0.2,
+              duration: 2.3,
+              times: [0, 0.3, 1],
+              type: "spring",
+              stiffness: 150,
+              damping: 15
+            }}
           >
-            Com<span className="text-transparent bg-gradient-to-r from-red-500 to-red-300 bg-clip-text">bates</span>
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto"
+            <svg width="180" height="180" viewBox="0 0 100 100" className="drop-shadow-2xl">
+              <defs>
+                <linearGradient id="gloveRed" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#dc2626" />
+                  <stop offset="50%" stopColor="#b91c1c" />
+                  <stop offset="100%" stopColor="#7f1d1d" />
+                </linearGradient>
+                <filter id="glowRed">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <g filter="url(#glowRed)">
+                <path d="M50 10 C25 10 15 30 15 50 C15 70 25 85 40 90 C45 92 50 95 55 90 C70 85 80 70 80 50 C80 30 70 10 50 10 Z" fill="url(#gloveRed)" stroke="#7f1d1d" strokeWidth="2"/>
+                <path d="M30 35 Q40 30 50 35 Q60 40 65 50" fill="none" stroke="#fca5a5" strokeWidth="2" opacity="0.5"/>
+                <circle cx="40" cy="55" r="5" fill="#7f1d1d"/>
+                <circle cx="50" cy="50" r="5" fill="#7f1d1d"/>
+                <circle cx="60" cy="55" r="5" fill="#7f1d1d"/>
+                <text x="50" y="72" textAnchor="middle" fill="#fca5a5" fontSize="8" fontWeight="bold" opacity="0.7">TITANIUM</text>
+              </g>
+            </svg>
+          </motion.div>
+
+          {/* Guante derecho - AZUL */}
+          <motion.div
+            className="absolute right-1/2"
+            initial={{ x: 0, opacity: 0 }}
+            animate={{ x: 250, opacity: [1, 1, 0] }}
+            transition={{ 
+              delay: 0.2,
+              duration: 2.3,
+              times: [0, 0.3, 1],
+              type: "spring",
+              stiffness: 150,
+              damping: 15
+            }}
           >
-            Videos y momento más recientes de nuestros peleadores en competencia.
-          </motion.p>
+            <svg width="180" height="180" viewBox="0 0 100 100" className="drop-shadow-2xl" style={{ transform: 'scaleX(-1)' }}>
+              <defs>
+                <linearGradient id="gloveBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#3b82f6" />
+                  <stop offset="50%" stopColor="#1d4ed8" />
+                  <stop offset="100%" stopColor="#1e3a8a" />
+                </linearGradient>
+                <filter id="glowBlue">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <g filter="url(#glowBlue)">
+                <path d="M50 10 C25 10 15 30 15 50 C15 70 25 85 40 90 C45 92 50 95 55 90 C70 85 80 70 80 50 C80 30 70 10 50 10 Z" fill="url(#gloveBlue)" stroke="#1e3a8a" strokeWidth="2"/>
+                <path d="M30 35 Q40 30 50 35 Q60 40 65 50" fill="none" stroke="#93c5fd" strokeWidth="2" opacity="0.5"/>
+                <circle cx="40" cy="55" r="5" fill="#1e3a8a"/>
+                <circle cx="50" cy="50" r="5" fill="#1e3a8a"/>
+                <circle cx="60" cy="55" r="5" fill="#1e3a8a"/>
+                <text x="50" y="72" textAnchor="middle" fill="#93c5fd" fontSize="8" fontWeight="bold" opacity="0.7">TITANIUM</text>
+              </g>
+            </svg>
+          </motion.div>
+
+          {/* Texto que aparece después del impacto */}
+          <div className="relative z-10 text-center px-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="mb-6"
+            >
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 }}
+                className="inline-flex items-center gap-2 px-6 py-2 bg-red-600/20 border border-red-500/40 rounded-full text-red-400 font-semibold text-sm"
+              >
+                <Trophy size={16} />
+                En el ring
+              </motion.span>
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.3, duration: 0.8 }}
+              className="text-6xl md:text-8xl font-black text-white mb-6"
+            >
+              Com<span className="text-transparent bg-gradient-to-r from-red-500 to-red-300 bg-clip-text">bates</span>
+            </motion.h1>
+          
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4 }}
+              className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto"
+            >
+              Videos y momento más recientes de nuestros peleadores en competencia.
+            </motion.p>
+          </div>
         </div>
       </section>
 
@@ -276,7 +389,6 @@ export default function CombatsPage() {
       {/* Main Video Section */}
       <section className="py-16 px-4 md:px-10 max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Video principal */}
           <div className="flex-1">
             <motion.div
               ref={videoContainerRef}
@@ -303,8 +415,6 @@ export default function CombatsPage() {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-red-600/20 border border-gray-800"
               >
-                                
-                {/* Video con controles nativos - funciona en mobile y desktop */}
                 <video
                   ref={videoRef}
                   src={current.video}
@@ -316,15 +426,12 @@ export default function CombatsPage() {
                   controls
                   controlsList="nodownload"
                 />
-
-                {/* Result badge */}
                 <div className={`absolute top-4 left-4 px-4 py-1.5 rounded-full text-sm font-bold border ${getResultColor(current.result)}`}>
                   {current.result}
                 </div>
               </motion.div>
             </motion.div>
 
-            {/* Fight info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -355,7 +462,6 @@ export default function CombatsPage() {
             </motion.div>
           </div>
 
-          {/* Sidebar con lista de combates */}
           <aside className="lg:w-96">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
@@ -384,7 +490,6 @@ export default function CombatsPage() {
                         : "bg-gray-800/30 border border-gray-700/50 hover:border-red-500/30"
                     }`}
                   >
-                    {/* Thumbnail */}
                     <div className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity">
                       <Image
                         src={c.thumbnail}
@@ -427,7 +532,6 @@ export default function CombatsPage() {
         </div>
       </section>
 
-      {/* Lightbox Modal */}
       <AnimatePresence>
         {lightboxIndex !== null && (
           <motion.div
